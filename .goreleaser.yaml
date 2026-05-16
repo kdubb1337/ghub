@@ -63,7 +63,7 @@ brews:
       owner: kdubb1337
       name: homebrew-tap
     homepage: "https://github.com/kdubb1337/ghub"
-    description: "Agent-native CLI for <service>"
+    description: "Agent-native CLI for GitHub"
     license: "MIT"
     test: |
       system "#{bin}/ghub", "--version"
