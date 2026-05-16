@@ -2,6 +2,10 @@
 
 CLI_NAME := ghub
 MODULE   := $(shell go list -m)
+TOOLS    := $(CURDIR)/.tools
+GOFUMPT       := $(shell command -v gofumpt 2>/dev/null || echo $(TOOLS)/gofumpt)
+GOIMPORTS     := $(shell command -v goimports 2>/dev/null || echo $(TOOLS)/goimports)
+GOLANGCI_LINT := $(shell command -v golangci-lint 2>/dev/null || echo $(TOOLS)/golangci-lint)
 
 build:
 	@mkdir -p bin
@@ -11,11 +15,11 @@ install: build
 	cp bin/$(CLI_NAME) $(GOPATH)/bin/$(CLI_NAME)
 
 fmt:
-	gofumpt -l -w .
-	goimports -local $(MODULE) -w .
+	$(GOFUMPT) -l -w .
+	$(GOIMPORTS) -local $(MODULE) -w .
 
 lint:
-	golangci-lint run ./...
+	$(GOLANGCI_LINT) run ./...
 	./scripts/lint-naming.sh
 
 test:
